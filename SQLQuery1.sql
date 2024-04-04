@@ -135,7 +135,6 @@ ORDER BY SoLuongSachMua DESC;
 
 
 --15 Tìm quyển sách có giá thành đắt nhất và rẻ nhất
-
 -- Quyển sách có giá thành đắt nhất
 SELECT TOP 1 TieuDe, DonGia
 FROM Sach
