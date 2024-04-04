@@ -100,6 +100,59 @@ WHERE KhachHang.MaKH = MuaHang.MaKH
 AND MuaHang.MaSach = Sach.MaSach
 ORDER BY SoNgayMua;
 
---10 
+--10 Hiển thị tên KH, tên sách, số ngày dc mua (tính đến ngày hiện tại) của quyển sách được bán gần đây nhất
+SELECT TOP 1 KhachHang.TenKH, Sach.TieuDe, DATEDIFF(day, MuaHang.NgayMua, GETDATE()) AS SoNgayMua
+FROM KhachHang, MuaHang, Sach
+WHERE KhachHang.MaKH = MuaHang.MaKH
+AND MuaHang.MaSach = Sach.MaSach
+ORDER BY MuaHang.NgayMua DESC;
+
+--11 Hiển thị danh sách các tác giả và giá trung bình của những quyển sách họ viết.
+SELECT TacGia, AVG(DonGia) AS GiaTrungBinh
+FROM Sach
+GROUP BY TacGia;
+
+--12 Hiển thị TenKH và số lượng những quyển sách họ mua
+SELECT KhachHang.TenKH, COUNT(*) AS SoLuongSachMua
+FROM KhachHang, MuaHang
+WHERE KhachHang.MaKH = MuaHang.MaKH
+GROUP BY KhachHang.TenKH;
+
+--13 Hiển thị tên 3 quyển sách có số lượng bán ra nhiều nhất
+SELECT TOP 3 TieuDe, COUNT(MaSach) AS SoLuongBanRa
+FROM MuaHang
+GROUP BY TieuDe
+ORDER BY SoLuongBanRa DESC;
+
+--14 Hiển thị TenKH mua nhiều sách nhất.
+SELECT TOP 1 KhachHang.TenKH, COUNT(*) AS SoLuongSachMua
+FROM KhachHang, MuaHang
+WHERE KhachHang.MaKH = MuaHang.MaKH
+GROUP BY KhachHang.TenKH
+ORDER BY SoLuongSachMua DESC;
+
+
+--15 Tìm quyển sách có giá thành đắt nhất và rẻ nhất
+
+-- Quyển sách có giá thành đắt nhất
+SELECT TOP 1 TieuDe, DonGia
+FROM Sach
+ORDER BY DonGia DESC;
+-- Quyển sách có giá thành rẻ nhất
+SELECT TOP 1 TieuDe, DonGia
+FROM Sach
+ORDER BY DonGia ASC;
+
+--16 Tăng những quyển sách có giá < 50000 lên 10%.
+UPDATE Sach
+SET DonGia = DonGia * 1.1
+WHERE DonGia < 50000;
+
+--17 Xóa từ bảng MuaHang những quyển sách dc mua 6 tháng trở về trước.
+DELETE FROM MuaHang
+WHERE NgayMua < DATEADD(month, -6, GETDATE());
+
+
+
 
 
