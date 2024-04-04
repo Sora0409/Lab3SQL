@@ -1,0 +1,53 @@
+CREATE TABLE Sach (
+    MaSach CHAR(20) PRIMARY KEY NOT NULL,
+    TieuDe CHAR(50) NOT NULL,
+    TacGia VARCHAR(30) NOT NULL,
+    NhaXb VARCHAR(30) NOT NULL,
+    SoLuong INT DEFAULT 1,
+    DonGia INT DEFAULT 10
+);
+CREATE TABLE MuaHang (
+    MaKH CHAR(6),
+    MaSach CHAR(20),
+    NgayMua SMALLDATETIME,
+    SoLuong INT,
+    PRIMARY KEY (MaKH, MaSach),
+    FOREIGN KEY (MaSach) REFERENCES Sach(MaSach)
+);
+CREATE TABLE KhachHang (
+    MaKH CHAR(6) PRIMARY KEY NOT NULL,
+    TenKH VARCHAR(30) NOT NULL,
+    DiaChi VARCHAR(50),
+    KhuVuc VARCHAR(30),
+    TenNguoiGT VARCHAR(30)
+);
+
+
+----------
+INSERT INTO Sach (MaSach, TieuDe, TacGia, NhaXb, SoLuong, DonGia)
+VALUES 
+('1', 'C#', 'ThuTV', 'LD', 5, 25000),
+('2', 'Java', 'DuyDT', 'LD', 10, 40000),
+('3', 'Lap Trinh C', 'LamVT', 'NXB', 4, 32000),
+('4', 'Advanced Java', 'ThuTV', 'NXB', 10, 60000),
+('5', 'SQL server', 'DuyDT', 'NXB', 7, 20000),
+('6', '.NET', 'LamVT', 'LD', 10, 55000);
+-------
+INSERT INTO KhachHang (MaKH, TenKH, DiaChi, KhuVuc, TenNguoiGT)
+VALUES 
+('KH1', 'A', 'HN', '1', 'X'),
+('KH2', 'B', 'HP', '2', 'X'),
+('KH3', 'C', 'TPHCM', '3', 'X'),
+('KH4', 'D', 'HN', '1', 'X'),
+('KH5', 'E', 'HP', '2', 'X');
+--------
+INSERT INTO MuaHang (MaKH, MaSach, NgayMua, SoLuong)
+VALUES 
+('KH1', '1', '2009-01-01', 2),
+('KH1', '5', '2009-01-01', 1),
+('KH2', '1', '2009-11-03', 1),
+('KH3', '3', '2008-01-12', 5),
+('KH4', '2', '2008-08-08', 2),
+('KH5', '4', '2009-03-02', 1),
+('KH3', '1', '2008-09-05', 3);
+
