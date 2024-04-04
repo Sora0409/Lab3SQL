@@ -136,13 +136,13 @@ ORDER BY SoLuongSachMua DESC;
 
 --15 Tìm quyển sách có giá thành đắt nhất và rẻ nhất
 -- Quyển sách có giá thành đắt nhất
-SELECT TOP 1 TieuDe, DonGia
+SELECT TieuDe, DonGia
 FROM Sach
-ORDER BY DonGia DESC;
--- Quyển sách có giá thành rẻ nhất
-SELECT TOP 1 TieuDe, DonGia
+WHERE DonGia = (SELECT MAX(DonGia) FROM Sach)
+UNION ALL
+SELECT TieuDe, DonGia
 FROM Sach
-ORDER BY DonGia ASC;
+WHERE DonGia = (SELECT MIN(DonGia) FROM Sach);
 
 --16 Tăng những quyển sách có giá < 50000 lên 10%.
 UPDATE Sach
