@@ -121,9 +121,9 @@ WHERE KhachHang.MaKH = MuaHang.MaKH
 GROUP BY KhachHang.TenKH;
 
 --13 Hiển thị tên 3 quyển sách có số lượng bán ra nhiều nhất
-SELECT TOP 3 TieuDe, COUNT(MaSach) AS SoLuongBanRa
-FROM MuaHang
-GROUP BY TieuDe
+SELECT TOP 3 TieuDe, 
+    (SELECT SUM(SoLuong) FROM MuaHang WHERE MuaHang.MaSach = Sach.MaSach) AS SoLuongBanRa
+FROM Sach
 ORDER BY SoLuongBanRa DESC;
 
 --14 Hiển thị TenKH mua nhiều sách nhất.
